@@ -23,7 +23,6 @@
         <th>ENGLISH</th>
         <th>CHINESE</th>
         <th>SENTENCE</th>
-        <th colspan="2">OPERATION</th>
     </tr>
     <c:forEach var="word" items="${sessionScope.words}" varStatus="vs">
         <tr>
@@ -32,8 +31,6 @@
             <td>${word.english}</td>
             <td>${word.chinese}</td>
             <td>${word.sentence}</td>
-            <td><a href="${ctx}/word/search/${word.id}">EDIT</a></td>
-            <td><a class="delete" href="${ctx }/word/remove/${word.id}" onclick="return del()">REMOVE</a></td>
         </tr>
     </c:forEach>
 </table>
