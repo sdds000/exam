@@ -12,4 +12,16 @@ CREATE TABLE exam.user
 
 INSERT INTO exam.user VALUES (NULL, 'a', 'a');
 
+# word
+DROP TABLE IF EXISTS exam.word;
+CREATE TABLE exam.word (
+  id       INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  english  VARCHAR(255),
+  chinese  VARCHAR(255),
+  property VARCHAR(255),
+  sentence VARCHAR(2048)
+);
+
 USE exam;
+
+TRUNCATE  TABLE word;

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="word">
+    <insert id="add" parameterType="Word" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO exam.word (
+            english,
+            chinese,
+            sentence
+        )
+        VALUES (
+            #{english},
+            #{chinese},
+            #{sentence}
+        );
+    </insert>
+    <delete id="remove">
+        DELETE FROM exam.word
+        WHERE id = #{id}
+    </delete>
+    <update id="modify">
+        UPDATE exam.word
+        SET
+            english  = #{english},
+            chinese  = #{chinese},
+            sentence = #{sentence}
+        WHERE id = #{id}
+    </update>
+    <select id="list" resultType="word">
+        SELECT *
+        FROM exam.word
+        ORDER BY id
+    </select>
+    <select id="query" parameterType="word" resultType="word">
+        SELECT *
+        FROM exam.word
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id}
+            </if>
+            <if test="english != null and english != ''">AND english LIKE "%"#{english}"%"</if>
+            <if test="chinese != null and chinese != ''">AND chinese LIKE "%"#{chinese}"%"</if>
+            <if test="sentence != null and sentence != ''">AND sentence LIKE "%"#{sentence}"%"</if>
+        </where>
+    </select>
+    <select id="search" resultType="word">
+        SELECT *
+        FROM exam.word
+        WHERE id = #{id}
+    </select>
+    <select id="queryWord" parameterType="word" resultType="word">
+        SELECT *
+        FROM exam.word
+        WHERE word.english LIKE concat('%', #{english}, '%') OR word.chinese LIKE concat('%', #{chinese}, '%')
+        <!--<where>-->
+            <!--<if test="english != null">word.english like '%'#{english}'%'</if>-->
+        <!--</where>-->
+    </select>
+</mapper>

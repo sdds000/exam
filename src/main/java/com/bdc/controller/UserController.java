@@ -21,7 +21,7 @@ public class UserController extends BaseController {
         user = userService.login(user);
         if (user != null) {
             getSession().setAttribute("user", user);
-            return "index";
+            return "word/index";
         } else {
             getRequest().setAttribute("message", "invalid username or password.");
             return "default";

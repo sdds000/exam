@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %><%@ include file="commons/inc.jsp"%>
 <html>
 <head>
     <title>default page</title>
@@ -10,5 +10,32 @@
     password: <input name="password" type="password" value="a"><br/>
     <input type="submit" value="LOGIN">
 </form>
+<hr>
+<form action="${ctx}/word/query" method="post">
+    <input name="string">
+    <input type="submit" value="QUERY">
+</form>
+<hr/>
+<table border="1">
+    <tr>
+        <th>INDEX</th>
+        <th>ID</th>
+        <th>ENGLISH</th>
+        <th>CHINESE</th>
+        <th>SENTENCE</th>
+        <th colspan="2">OPERATION</th>
+    </tr>
+    <c:forEach var="word" items="${sessionScope.words}" varStatus="vs">
+        <tr>
+            <td>${vs.count}</td>
+            <td>${word.id}</td>
+            <td>${word.english}</td>
+            <td>${word.chinese}</td>
+            <td>${word.sentence}</td>
+            <td><a href="${ctx}/word/search/${word.id}">EDIT</a></td>
+            <td><a class="delete" href="${ctx }/word/remove/${word.id}" onclick="return del()">REMOVE</a></td>
+        </tr>
+    </c:forEach>
+</table>
 </body>
 </html>
