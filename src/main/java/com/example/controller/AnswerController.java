@@ -33,9 +33,11 @@ public class AnswerController extends BaseController {
     }
 
     @RequestMapping("modify")
-    private String modify(Answer answer) {
+    private String modify(@RequestParam String answerString) {
+        Answer answer = (Answer) getSession().getAttribute("answer");
+        answer.setAnswer(answerString);
         answerService.modify(answer);
-        return "redirect:/answer/list";
+        return "redirect:/default.jsp";
     }
 
     @RequestMapping("list/{page}")

@@ -6,14 +6,14 @@
 <mapper namespace="answer">
     <insert id="add" parameterType="Answer" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO exam.answer (
-    answer, 
-    user_id, 
-    question_id
+            answer,
+            user_id,
+            question_id
         )
         VALUES (
-    #{answer}, 
-    #{userId}, 
-    #{questionId}
+            #{answer},
+            #{userId},
+            #{questionId}
         );
     </insert>
     <delete id="remove">
@@ -23,9 +23,9 @@
     <update id="modify">
         UPDATE exam.answer
         SET
-    answer = #{answer}, 
-    user_id = #{userId}, 
-    question_id = #{questionId}
+            answer      = #{answer},
+            user_id     = #{userId},
+            question_id = #{questionId}
         WHERE id = #{id}
     </update>
     <select id="list" resultType="answer">
@@ -34,15 +34,19 @@
         ORDER BY id
     </select>
     <select id="query" parameterType="answer" resultType="answer">
-        SELECT *
-        FROM exam.answer
+        SELECT
+        a.id,
+        a.answer,
+        a.user_id as userId,
+        a.question_id as questionId
+        FROM exam.answer a
         <where>
             <if test="id != null and id != ''">
                 id = #{id}
             </if>
-            <if test="answer != null and answer != ''"> AND answer LIKE "%"#{answer}"%"</if>
-            <if test="user_id != null and user_id != ''"> AND user_id LIKE "%"#{userId}"%"</if>
-            <if test="question_id != null and question_id != ''"> AND question_id LIKE "%"#{questionId}"%"</if>
+            <if test="answer != null and answer != ''">AND answer = #{answer}</if>
+            <if test="userId != null and userId != ''">AND user_id = #{userId}</if>
+            <if test="questionId != null and questionId != ''">AND question_id = #{questionId}</if>
         </where>
     </select>
     <select id="search" resultType="answer">

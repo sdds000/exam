@@ -30,14 +30,17 @@
         <result property="question" column="question"/>
         <collection property="answers" ofType="answer">
             <result property="answer" column="answer"/>
-
+            <association property="user" javaType="user">
+                <result property="username" column="username"/>
+            </association>
         </collection>
     </resultMap>
     <select id="query_question_answer" resultMap="map_query_question_answer">
         SELECT
             q.question,
-            a.answer
-        FROM question q, answer a
-        WHERE q.id = a.question_id
+            a.answer,
+            u.username
+        FROM question q, answer a, user u
+        WHERE q.id = a.question_id AND u.id = a.user_id
     </select>
 </mapper>

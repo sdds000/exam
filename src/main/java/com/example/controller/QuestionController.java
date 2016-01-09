@@ -1,5 +1,8 @@
 package com.example.controller;
 
+import com.example.model.Answer;
+import com.example.model.User;
+import com.example.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,8 @@ public class QuestionController extends BaseController {
 
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private AnswerService answerService;
 
     @RequestMapping("add")
     private String add(Question question) {
@@ -46,6 +51,10 @@ public class QuestionController extends BaseController {
     @RequestMapping("search/{id}")
     private String search(@PathVariable("id") Integer id) {
         getSession().setAttribute("question", questionService.search(id));
+        Answer answer = new Answer();
+        answer.setQuestionId(id);
+        answer.setUserId(((User)getSession().getAttribute("user")).getId());
+        getSession().setAttribute("answer", answerService.query(answer));
         return "redirect:/answer/add.jsp";
     }
 }

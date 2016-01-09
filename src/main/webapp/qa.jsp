@@ -18,7 +18,7 @@
         <li>${question.question}</li>
             <ul>
             <c:forEach var="answer" items="${question.answers}">
-                <li>? : ${answer.answer}</li>
+                <li>${answer.user.username} : ${answer.answer}</li>
             </c:forEach>
             </ul>
     </c:forEach>
