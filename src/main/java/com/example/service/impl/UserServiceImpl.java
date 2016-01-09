@@ -1,11 +1,15 @@
 package com.example.service.impl;
 
 import com.example.dao.GenericDao;
+import com.example.dao.UserDao;
+import com.example.model.Question;
 import com.example.model.User;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2015/12/27.
@@ -28,5 +32,10 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<Question> queryQuestionAnswer() {
+        return ((UserDao) genericDao).queryQuestionAnswer();
     }
 }

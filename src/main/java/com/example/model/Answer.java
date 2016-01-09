@@ -5,17 +5,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-/**
- * Created by Administrator on 2015/12/13.
- * model domain data entity
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class User extends BaseModel {
+public class Answer extends BaseModel {
+
     private Integer id;
-    private String username;
-    private String password;
-    private int role;
+    private String answer;
+    private Integer userId;
+    private Integer questionId;
+
+    private User user;
 }

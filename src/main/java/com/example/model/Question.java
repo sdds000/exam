@@ -5,17 +5,17 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-/**
- * Created by Administrator on 2015/12/13.
- * model domain data entity
- */
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class User extends BaseModel {
+public class Question extends BaseModel {
+
     private Integer id;
-    private String username;
-    private String password;
-    private int role;
+    private String question;
+
+    private List<Answer> answers = new ArrayList<>();
 }

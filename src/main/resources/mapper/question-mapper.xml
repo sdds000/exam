@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="question">
+    <insert id="add" parameterType="Question" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO exam.question (
+    question
+        )
+        VALUES (
+    #{question}
+        );
+    </insert>
+    <delete id="remove">
+        DELETE FROM exam.question
+        WHERE id = #{id}
+    </delete>
+    <update id="modify">
+        UPDATE exam.question
+        SET
+    question = #{question}
+        WHERE id = #{id}
+    </update>
+    <select id="list" resultType="question">
+        SELECT *
+        FROM exam.question
+        ORDER BY id
+    </select>
+    <select id="query" parameterType="question" resultType="question">
+        SELECT *
+        FROM exam.question
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id}
+            </if>
+            <if test="question != null and question != ''"> AND question LIKE "%"#{question}"%"</if>
+        </where>
+    </select>
+    <select id="search" resultType="question">
+        SELECT *
+        FROM exam.question
+        WHERE id = #{id}
+    </select>
+</mapper>

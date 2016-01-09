@@ -21,7 +21,7 @@ public class UserController extends BaseController {
         user = userService.login(user);
         if (user != null) {
             getSession().setAttribute("user", user);
-            return "index";
+            return "redirect:/question/list";
         } else {
             getRequest().setAttribute("message", "invalid username or password.");
             return "default";
@@ -32,5 +32,11 @@ public class UserController extends BaseController {
     private String logout() {
         getSession().invalidate();
         return "default";
+    }
+
+    @RequestMapping("/queryQuestionAnswer")
+    private String queryQuestionAnswer() {
+        getSession().setAttribute("questions", userService.queryQuestionAnswer());
+        return "redirect:/qa.jsp";
     }
 }
