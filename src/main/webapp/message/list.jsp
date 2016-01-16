@@ -28,7 +28,7 @@
                 <td>${message.id}</td>
                 <td>${message.name}</td>
                 <td>${message.content}</td>
-                <td>${message.time}</td>
+                <td><fmt:formatDate value="${message.time}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 <td><a class="delete" href="${ctx }/message/remove/${message.id}" onclick="return del()">REMOVE</a></td>
             </tr>
             </c:forEach>
