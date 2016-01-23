@@ -29,6 +29,7 @@
     <resultMap id="map_query_question_answer" type="question">
         <result property="question" column="question"/>
         <collection property="answers" ofType="answer">
+            <id property="id" column="id"/>
             <result property="answer" column="answer"/>
             <association property="user" javaType="user">
                 <result property="username" column="username"/>
@@ -39,6 +40,7 @@
         SELECT
             q.question,
             a.answer,
+            a.id,
             u.username
         FROM question q, answer a, user u
         WHERE q.id = a.question_id AND u.id = a.user_id

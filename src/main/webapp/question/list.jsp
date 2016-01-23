@@ -32,7 +32,7 @@
             <td>${vs.count}</td>
             <td>${question.question}</td>
             <c:if test="${sessionScope.user.role eq 0}">
-                <td><a href="${ctx}/question/search/${question.id}">EDIT</a></td>
+                <td><a href="${ctx}/question/searchForEdit/${question.id}">EDIT</a></td>
                 <td><a class="delete" href="${ctx }/question/remove/${question.id}" onclick="return del()">REMOVE</a>
                 </td>
             </c:if>

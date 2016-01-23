@@ -17,6 +17,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDa
     public List<Question> queryQuestionAnswer() {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         List<Question> questions = sqlSession.selectList("user.query_question_answer");
+        System.out.println("-------------"+questions.size());
         sqlSession.close();
         return questions;
     }

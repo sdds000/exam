@@ -57,4 +57,9 @@ public class QuestionController extends BaseController {
         getSession().setAttribute("answer", answerService.query(answer));
         return "redirect:/answer/add.jsp";
     }
+    @RequestMapping("searchForEdit/{id}")
+    private String searchForEdit(@PathVariable("id") Integer id) {
+        getSession().setAttribute("question", questionService.search(id));
+        return "redirect:/question/edit.jsp";
+    }
 }

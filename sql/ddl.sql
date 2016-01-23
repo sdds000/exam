@@ -37,4 +37,11 @@ ADD CONSTRAINT fk_answer_question_id FOREIGN KEY (question_id) REFERENCES exam.q
 
 USE exam;
 
+SELECT
+  q.question,
+  a.answer,
+  u.username
+FROM question q, answer a, user u
+WHERE q.id = a.question_id AND u.id = a.user_id;
+
 SELECT * from answer;
