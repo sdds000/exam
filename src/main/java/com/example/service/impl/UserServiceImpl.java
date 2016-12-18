@@ -3,8 +3,6 @@ package com.example.service.impl;
 import com.example.dao.GenericDao;
 import com.example.model.User;
 import com.example.service.UserService;
-import com.example.util.Constant;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
