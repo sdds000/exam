@@ -6,12 +6,12 @@
 <mapper namespace="student">
     <insert id="add" parameterType="Student" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO exam.student (
-    sname, 
-    department_id
+            sname,
+            department_id
         )
         VALUES (
-    #{sname}, 
-    #{departmentId}
+            #{sname},
+            #{departmentId}
         );
     </insert>
     <delete id="remove">
@@ -21,14 +21,25 @@
     <update id="modify">
         UPDATE exam.student
         SET
-    sname = #{sname}, 
-    department_id = #{departmentId}
+            sname         = #{sname},
+            department_id = #{departmentId}
         WHERE student.id = #{id}
     </update>
-    <select id="list" resultType="student">
-        SELECT *
-        FROM exam.student
-        ORDER BY id
+    <resultMap id="list_map" type="student">
+        <id property="id" column="id"/>
+        <result property="sname" column="sname"/>
+        <association property="department" javaType="department">
+            <result property="dname" column="dname"/>
+        </association>
+    </resultMap>
+    <select id="list" resultMap="list_map">
+        SELECT
+            s.id,
+            s.sname,
+            d.dname
+        FROM exam.student s INNER JOIN exam.department d
+                ON s.department_id = d.id
+        ORDER BY s.id
     </select>
     <select id="query" parameterType="student" resultType="student">
         SELECT *
@@ -37,8 +48,8 @@
             <if test="id != null and id != ''">
                 student.id = #{id}
             </if>
-            <if test="sname != null and sname != ''"> AND sname LIKE "%"#{sname}"%"</if>
-            <if test="department_id != null and department_id != ''"> AND department_id LIKE "%"#{departmentId}"%"</if>
+            <if test="sname != null and sname != ''">AND sname LIKE "%"#{sname}"%"</if>
+            <if test="department_id != null and department_id != ''">AND department_id LIKE "%"#{departmentId}"%"</if>
         </where>
     </select>
     <select id="search" resultType="student">

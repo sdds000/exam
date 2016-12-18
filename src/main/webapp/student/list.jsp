@@ -23,7 +23,7 @@
             <tr>
                 <td>${vs.count}</td>
                 <td>${student.sname}</td>
-                <td>${student.departmentId}</td>
+                <td>${student.department.dname}</td>
                 <td><a href="${ctx}/student/search/${student.id}">EDIT</a></td>
                 <td><a class="delete" href="${ctx }/student/remove/${student.id}" onclick="return del()">REMOVE</a></td>
             </tr>

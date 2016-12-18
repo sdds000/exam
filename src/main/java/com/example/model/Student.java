@@ -14,4 +14,6 @@ public class Student extends BaseModel {
     private Integer id;
     private String sname;
     private int departmentId;
+
+    private Department department; // 1. 添加 一 端
 }

@@ -1,4 +1,5 @@
-CREATE DATABASE IF NOT EXISTS exam;
+DROP DATABASE IF EXISTS exam;
+CREATE DATABASE exam;
 
 # user table
 DROP TABLE IF EXISTS exam.user;
@@ -51,3 +52,9 @@ FROM exam.student;
 
 SELECT *
 FROM exam.department;
+
+SELECT
+  s.sname,
+  d.dname
+FROM exam.student s INNER JOIN exam.department d
+    ON s.department_id = d.id;
