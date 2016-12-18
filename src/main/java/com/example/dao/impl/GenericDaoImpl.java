@@ -51,6 +51,11 @@ public class GenericDaoImpl<T extends Serializable, ID extends Serializable> imp
     }
 
     @Override
+    public List<T> queryAll() {
+        return sqlSession.selectList(namespace.concat("queryAll"));
+    }
+
+    @Override
     public Pagination<T> list(int page) {
         return page(page, null, "list");
     }

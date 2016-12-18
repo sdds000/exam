@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="student">
+    <insert id="add" parameterType="Student" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO exam.student (
+    sname, 
+    department_id
+        )
+        VALUES (
+    #{sname}, 
+    #{departmentId}
+        );
+    </insert>
+    <delete id="remove">
+        DELETE FROM exam.student
+        WHERE student.id = #{id}
+    </delete>
+    <update id="modify">
+        UPDATE exam.student
+        SET
+    sname = #{sname}, 
+    department_id = #{departmentId}
+        WHERE student.id = #{id}
+    </update>
+    <select id="list" resultType="student">
+        SELECT *
+        FROM exam.student
+        ORDER BY id
+    </select>
+    <select id="query" parameterType="student" resultType="student">
+        SELECT *
+        FROM exam.student
+        <where>
+            <if test="id != null and id != ''">
+                student.id = #{id}
+            </if>
+            <if test="sname != null and sname != ''"> AND sname LIKE "%"#{sname}"%"</if>
+            <if test="department_id != null and department_id != ''"> AND department_id LIKE "%"#{departmentId}"%"</if>
+        </where>
+    </select>
+    <select id="search" resultType="student">
+        SELECT *
+        FROM exam.student
+        WHERE student.id = #{id}
+    </select>
+</mapper>

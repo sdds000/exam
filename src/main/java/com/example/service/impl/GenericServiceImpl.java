@@ -5,6 +5,7 @@ import com.example.service.GenericService;
 import com.example.util.Pagination;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -44,5 +45,10 @@ public abstract class GenericServiceImpl<T extends Serializable, ID extends Seri
     @Override
     public T search(ID id) {
         return genericDao.search(id);
+    }
+
+    @Override
+    public List<T> queryAll() {
+        return genericDao.queryAll();
     }
 }

@@ -3,6 +3,7 @@ package com.example.dao;
 import com.example.util.Pagination;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -15,4 +16,5 @@ public interface GenericDao<T extends Serializable, ID extends Serializable> {
     Pagination<T> list(int page);
     T query(T t);
     T search(ID id);
+    List<T> queryAll();
 }
