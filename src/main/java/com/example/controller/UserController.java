@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.model.User;
+import com.example.service.SalaryService;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController extends BaseController {
 
     private final UserService userService;
+    private final SalaryService salaryService;
+
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, SalaryService salaryService) {
         this.userService = userService;
+        this.salaryService = salaryService;
     }
 
     @RequestMapping("register")
@@ -37,9 +41,10 @@ public class UserController extends BaseController {
         if (user != null) {
             getSession().setAttribute("user", user);
             if (user.getRole().equals("admin")) {
-                return "redirect:/admin.jsp";
+                return "redirect:/salary/index.jsp";
             }
             if (user.getRole().equals("user")) {
+                getSession().setAttribute("pagination", salaryService.query(1, "queryUserSalariesByUserId", user.getId()));
                 return "redirect:/user.jsp";
             }
             return "redirect:/index.jsp";
@@ -53,5 +58,11 @@ public class UserController extends BaseController {
     private String logout() {
         getSession().invalidate();
         return "redirect:/default.jsp";
+    }
+
+    @RequestMapping("queryAllUser")
+    private String queryAllUser() {
+        getSession().setAttribute("users", userService.queryAll("user.queryAllUser", null));
+        return "redirect:/salary/add.jsp";
     }
 }

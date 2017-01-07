@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="salary">
+    <insert id="add" parameterType="salary" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO exam.salary (
+    time, 
+    basic, 
+    insurance, 
+    userId
+        )
+        VALUES (
+    #{time}, 
+    #{basic}, 
+    #{insurance}, 
+    #{userId}
+        );
+    </insert>
+    <delete id="remove">
+        DELETE FROM exam.salary
+        WHERE salary.id = #{id}
+    </delete>
+    <update id="modify">
+        UPDATE exam.salary
+        SET
+    time = #{time}, 
+    basic = #{basic}, 
+    insurance = #{insurance}, 
+    userId = #{userId}
+        WHERE salary.id = #{id}
+    </update>
+    <select id="list" resultType="salary">
+        SELECT *
+        FROM exam.salary
+        ORDER BY id
+    </select>
+    <select id="query" parameterType="salary" resultType="salary">
+        SELECT *
+        FROM exam.salary
+        <where>
+            <if test="id != null and id != ''">
+            salary.id = #{id}
+            </if>
+            <if test="time != null and time != ''"> AND time LIKE "%"#{time}"%"</if>
+            <if test="basic != null and basic != ''"> AND basic LIKE "%"#{basic}"%"</if>
+            <if test="insurance != null and insurance != ''"> AND insurance LIKE "%"#{insurance}"%"</if>
+            <if test="userId != null and userId != ''"> AND userId LIKE "%"#{userId}"%"</if>
+        </where>
+    </select>
+    <select id="search" resultType="salary">
+        SELECT *
+        FROM exam.salary
+        WHERE salary.id = #{id}
+    </select>
+    <resultMap id="map_queryUserSalaries" type="user">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <collection property="salaries" ofType="salary">
+            <result property="time" column="time"/>
+            <result property="basic" column="basic"/>
+            <result property="insurance" column="insurance"/>
+        </collection>
+    </resultMap>
+    <select id="queryUserSalaries" resultMap="map_queryUserSalaries">
+        SELECT
+        u.id,
+        u.username,
+        s.time,
+        s.basic,
+        s.insurance
+        FROM exam.user u INNER JOIN exam.salary s ON u.id = s.userId
+    </select>
+    <select id="queryUserSalariesByUserId" parameterType="int" resultMap="map_queryUserSalaries">
+        SELECT
+        u.id,
+        u.username,
+        s.time,
+        s.basic,
+        s.insurance
+        FROM exam.user u INNER JOIN exam.salary s ON u.id = s.userId
+        WHERE u.id = #{id}
+    </select>
+    <select id="queryUserSalariesByUsernameOrTime" parameterType="hashmap" resultMap="map_queryUserSalaries">
+        SELECT
+        u.id,
+        u.username,
+        s.time,
+        s.basic,
+        s.insurance
+        FROM exam.user u INNER JOIN exam.salary s ON u.id = s.userId
+        WHERE u.username = #{username} AND s.time = #{time}
+#         MyBatis Dynamic SQL
+    </select>
+
+</mapper>

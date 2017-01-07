@@ -1,16 +1,26 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %><%@ include file="commons/inc.jsp" %>
+<!DOCTYPE html>
+<%@ page pageEncoding="UTF-8" %>
+<%@ include file="/commons/inc.jsp" %>
 <html>
 <head>
-    <title>user page</title>
+    <meta charset="UTF-8"/>
+    <title>salary list page</title>
+    <script>
+        function del() {
+            return confirm('REMOVE?');
+        }
+    </script>
 </head>
 <body>
-<c:if test="${sessionScope.user eq null}">
-    <c:redirect url="/"/>
-</c:if>
-<h1>user page</h1>
-user: ${sessionScope.user.username}<br/>
-<a href="${ctx}/user/logout">LOG OUT</a>
+<c:import url="add.jsp"/>
+<hr/>
+<form action="${ctx}/salary/queryUserSalariesByUsernameOrTime" method="post">
+    姓名：<input name="username"> 工资月：<input name="time">
+    <input type="submit" value="查询">
+</form>
 <hr>
+<h1>LIST Salary</h1>
+<hr/>
 <table border="1">
     <tr>
         <th>员工</th>
@@ -18,6 +28,7 @@ user: ${sessionScope.user.username}<br/>
         <th>BASIC</th>
         <th>INSURANCE</th>
         <th>应发工资</th>
+        <th colspan="2">OPERATION</th>
     </tr>
     <c:forEach var="user" items="${sessionScope.pagination.list}">
         <c:forEach var="salary" items="${user.salaries}">
@@ -27,6 +38,8 @@ user: ${sessionScope.user.username}<br/>
                 <td>${salary.basic}</td>
                 <td>${salary.insurance}</td>
                 <td>${salary.basic - salary.insurance}</td>
+                <td><a href="${ctx}/salary/search/${salary.id}">EDIT</a></td>
+                <td><a class="delete" href="${ctx }/salary/remove/${salary.id}" onclick="return del()">REMOVE</a></td>
             </tr>
         </c:forEach>
     </c:forEach>

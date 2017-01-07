@@ -16,6 +16,31 @@ CREATE TABLE exam.user (
   COMMENT '用户表';
 
 INSERT INTO exam.user VALUES (NULL, 'a', 'a', 'admin');
+INSERT INTO exam.user VALUES (NULL, 'b', 'a', 'user');
+INSERT INTO exam.user VALUES (NULL, 'c', 'a', 'user');
+INSERT INTO exam.user VALUES (NULL, 'd', 'a', 'user');
+
+# user salary
+DROP TABLE IF EXISTS exam.salary;
+CREATE TABLE exam.salary (
+  id        INT AUTO_INCREMENT PRIMARY KEY
+  COMMENT 'PK',
+  time      VARCHAR(255) COMMENT '工资月份',
+  basic     DECIMAL(7, 2) COMMENT '基本工资',
+  insurance DECIMAL(7, 2) COMMENT '保险',
+  userId    INT COMMENT 'FK'
+);
+
+-- FK
+ALTER TABLE exam.salary
+  ADD CONSTRAINT
+  fk_salary_userId
+FOREIGN KEY (userId)
+REFERENCES exam.user (id);
+
 
 SELECT *
 FROM exam.user;
+
+SELECT *
+FROM exam.salary;

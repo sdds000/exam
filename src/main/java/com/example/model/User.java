@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2015/12/13.
  * model domain data entity
@@ -18,4 +20,6 @@ public class User extends BaseModel {
     private String username;
     private String password;
     private String role;
+
+    private List<Salary> salaries;
 }
