@@ -16,4 +16,6 @@ public class Salary extends BaseModel {
     private double basic;
     private double insurance;
     private int userId;
+
+    private User user;
 }

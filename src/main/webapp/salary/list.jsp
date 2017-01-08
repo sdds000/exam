@@ -30,18 +30,16 @@
         <th>应发工资</th>
         <th colspan="2">OPERATION</th>
     </tr>
-    <c:forEach var="user" items="${sessionScope.pagination.list}">
-        <c:forEach var="salary" items="${user.salaries}">
-            <tr>
-                <td>${user.username}</td>
-                <td>${salary.time}</td>
-                <td>${salary.basic}</td>
-                <td>${salary.insurance}</td>
-                <td>${salary.basic - salary.insurance}</td>
-                <td><a href="${ctx}/salary/search/${salary.id}">EDIT</a></td>
-                <td><a class="delete" href="${ctx }/salary/remove/${salary.id}" onclick="return del()">REMOVE</a></td>
-            </tr>
-        </c:forEach>
+    <c:forEach var="salary" items="${sessionScope.pagination.list}">
+        <tr>
+            <td>${salary.user.username}</td>
+            <td>${salary.time}</td>
+            <td>${salary.basic}</td>
+            <td>${salary.insurance}</td>
+            <td>${salary.basic - salary.insurance}</td>
+            <td><a href="${ctx}/salary/search/${salary.id}">EDIT</a></td>
+            <td><a class="delete" href="${ctx }/salary/remove/${salary.id}" onclick="return del()">REMOVE</a></td>
+        </tr>
     </c:forEach>
 </table>
 <c:import url="${ctx}/commons/page.jsp">

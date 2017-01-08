@@ -54,19 +54,19 @@
         FROM exam.salary
         WHERE salary.id = #{id}
     </select>
-    <resultMap id="map_queryUserSalaries" type="user">
+    <resultMap id="map_queryUserSalaries" type="salary">
         <id property="id" column="id"/>
-        <result property="username" column="username"/>
-        <collection property="salaries" ofType="salary">
-            <result property="time" column="time"/>
-            <result property="basic" column="basic"/>
-            <result property="insurance" column="insurance"/>
-        </collection>
+        <result property="time" column="time"/>
+        <result property="basic" column="basic"/>
+        <result property="insurance" column="insurance"/>
+        <association property="user" javaType="user">
+            <result property="username" column="username"/>
+        </association>
     </resultMap>
     <select id="queryUserSalaries" resultMap="map_queryUserSalaries">
         SELECT
-            u.id,
             u.username,
+            s.id,
             s.time,
             s.basic,
             s.insurance
@@ -74,8 +74,8 @@
     </select>
     <select id="queryUserSalariesByUserId" parameterType="int" resultMap="map_queryUserSalaries">
         SELECT
-            u.id,
             u.username,
+            s.id,
             s.time,
             s.basic,
             s.insurance
@@ -84,8 +84,8 @@
     </select>
     <select id="queryUserSalariesByUsernameOrTime" parameterType="hashmap" resultMap="map_queryUserSalaries">
         SELECT
-        u.id,
         u.username,
+        s.id,
         s.time,
         s.basic,
         s.insurance

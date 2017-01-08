@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %><%@ include file="commons/inc.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="commons/inc.jsp" %>
 <html>
 <head>
     <title>user page</title>
@@ -19,16 +20,14 @@ user: ${sessionScope.user.username}<br/>
         <th>INSURANCE</th>
         <th>应发工资</th>
     </tr>
-    <c:forEach var="user" items="${sessionScope.pagination.list}">
-        <c:forEach var="salary" items="${user.salaries}">
-            <tr>
-                <td>${user.username}</td>
-                <td>${salary.time}</td>
-                <td>${salary.basic}</td>
-                <td>${salary.insurance}</td>
-                <td>${salary.basic - salary.insurance}</td>
-            </tr>
-        </c:forEach>
+    <c:forEach var="salary" items="${sessionScope.pagination.list}">
+        <tr>
+            <td>${salary.user.username}</td>
+            <td>${salary.time}</td>
+            <td>${salary.basic}</td>
+            <td>${salary.insurance}</td>
+            <td>${salary.basic - salary.insurance}</td>
+        </tr>
     </c:forEach>
 </table>
 <c:import url="${ctx}/commons/page.jsp">
