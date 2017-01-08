@@ -12,6 +12,8 @@
     </script>
 </head>
 <body>
+${sessionScope.pagination.list}
+<hr>
 <c:import url="add.jsp"/>
 <hr/>
 <form action="${ctx}/salary/queryUserSalariesByUsernameOrTime" method="post">

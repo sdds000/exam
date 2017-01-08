@@ -60,11 +60,13 @@
         <result property="basic" column="basic"/>
         <result property="insurance" column="insurance"/>
         <association property="user" javaType="user">
+            <id property="id" column="user_id"/>
             <result property="username" column="username"/>
         </association>
     </resultMap>
     <select id="queryUserSalaries" resultMap="map_queryUserSalaries">
         SELECT
+            u.id AS user_id,
             u.username,
             s.id,
             s.time,
@@ -84,6 +86,7 @@
     </select>
     <select id="queryUserSalariesByUsernameOrTime" parameterType="hashmap" resultMap="map_queryUserSalaries">
         SELECT
+        u.id AS user_id,
         u.username,
         s.id,
         s.time,
