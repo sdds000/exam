@@ -6,16 +6,16 @@
 <mapper namespace="salary">
     <insert id="add" parameterType="salary" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO exam.salary (
-    time, 
-    basic, 
-    insurance, 
-    userId
+            time,
+            basic,
+            insurance,
+            userId
         )
         VALUES (
-    #{time}, 
-    #{basic}, 
-    #{insurance}, 
-    #{userId}
+            #{time},
+            #{basic},
+            #{insurance},
+            #{userId}
         );
     </insert>
     <delete id="remove">
@@ -25,10 +25,10 @@
     <update id="modify">
         UPDATE exam.salary
         SET
-    time = #{time}, 
-    basic = #{basic}, 
-    insurance = #{insurance}, 
-    userId = #{userId}
+            time      = #{time},
+            basic     = #{basic},
+            insurance = #{insurance},
+            userId    = #{userId}
         WHERE salary.id = #{id}
     </update>
     <select id="list" resultType="salary">
@@ -41,12 +41,12 @@
         FROM exam.salary
         <where>
             <if test="id != null and id != ''">
-            salary.id = #{id}
+                salary.id = #{id}
             </if>
-            <if test="time != null and time != ''"> AND time LIKE "%"#{time}"%"</if>
-            <if test="basic != null and basic != ''"> AND basic LIKE "%"#{basic}"%"</if>
-            <if test="insurance != null and insurance != ''"> AND insurance LIKE "%"#{insurance}"%"</if>
-            <if test="userId != null and userId != ''"> AND userId LIKE "%"#{userId}"%"</if>
+            <if test="time != null and time != ''">AND time LIKE "%"#{time}"%"</if>
+            <if test="basic != null and basic != ''">AND basic LIKE "%"#{basic}"%"</if>
+            <if test="insurance != null and insurance != ''">AND insurance LIKE "%"#{insurance}"%"</if>
+            <if test="userId != null and userId != ''">AND userId LIKE "%"#{userId}"%"</if>
         </where>
     </select>
     <select id="search" resultType="salary">
@@ -65,20 +65,20 @@
     </resultMap>
     <select id="queryUserSalaries" resultMap="map_queryUserSalaries">
         SELECT
-        u.id,
-        u.username,
-        s.time,
-        s.basic,
-        s.insurance
+            u.id,
+            u.username,
+            s.time,
+            s.basic,
+            s.insurance
         FROM exam.user u INNER JOIN exam.salary s ON u.id = s.userId
     </select>
     <select id="queryUserSalariesByUserId" parameterType="int" resultMap="map_queryUserSalaries">
         SELECT
-        u.id,
-        u.username,
-        s.time,
-        s.basic,
-        s.insurance
+            u.id,
+            u.username,
+            s.time,
+            s.basic,
+            s.insurance
         FROM exam.user u INNER JOIN exam.salary s ON u.id = s.userId
         WHERE u.id = #{id}
     </select>
@@ -90,8 +90,15 @@
         s.basic,
         s.insurance
         FROM exam.user u INNER JOIN exam.salary s ON u.id = s.userId
-        WHERE u.username = #{username} AND s.time = #{time}
-#         MyBatis Dynamic SQL
+        # MyBatis Dynamic SQL
+        <where>
+            <if test="username != null">
+                u.username = #{username}
+            </if>
+            <if test="time != null">
+                AND s.time = #{time}
+            </if>
+        </where>
     </select>
 
 </mapper>

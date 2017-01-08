@@ -62,6 +62,12 @@ public class SalaryController extends BaseController {
 
     @RequestMapping("queryUserSalariesByUsernameOrTime")
     private String queryUserSalariesByUsernameOrTime(String username, String time) {
+        if (username.trim().isEmpty()) {
+            username = null;
+        }
+        if (time.trim().isEmpty()) {
+            time = null;
+        }
         System.out.println(username + ", " + time);
         Map<String, String> map = new HashMap<>();
         map.put("username", username);
