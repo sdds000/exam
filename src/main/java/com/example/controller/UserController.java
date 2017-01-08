@@ -62,7 +62,7 @@ public class UserController extends BaseController {
 
     @RequestMapping("queryAllUser")
     private String queryAllUser() {
-        getSession().setAttribute("users", userService.queryAll("user.queryAllUser", null));
+        getSession().setAttribute("users", userService.queryAll("queryAllUser", null));
         return "redirect:/salary/add.jsp";
     }
 }
